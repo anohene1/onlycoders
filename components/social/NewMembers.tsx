@@ -1,9 +1,25 @@
-import React from "react";
+"use client"
+
+import React, {useEffect, useRef} from "react";
 import MemberTag from "./MemberTag";
+import {gsap, Power3} from "gsap";
 
 const NewMembers = () => {
+
+    const newMembersContainerRef = useRef<HTMLDivElement>(null)
+
+    // Animations
+    useEffect(() => {
+        gsap.to(newMembersContainerRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: Power3.easeInOut
+        })
+    }, []);
+
   return (
-    <div className="bg-white border lg:row-start-1 rounded-md lg:row-span-2  lg:overflow-scroll lg:col-span-3 lg:col-start-1  lg:mt-0 mt-8 border-[#F1F5F9] px-4 py-5">
+    <div ref={newMembersContainerRef} className="bg-white border lg:row-start-1 rounded-md lg:row-span-2 translate-y-[10px] opacity-0 lg:overflow-scroll lg:col-span-3 lg:col-start-1  lg:mt-0 mt-8 border-[#F1F5F9] px-4 py-5">
       <h2 className="text-[#475569] font-bold">Newest members</h2>
 
       <div className="mt-4">

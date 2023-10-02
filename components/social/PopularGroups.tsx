@@ -1,9 +1,25 @@
-import React from "react";
+"use client"
+
+import React, {useEffect, useRef} from "react";
 import GroupTag from "./GroupTag";
+import {gsap, Power3} from "gsap";
 
 const PopularGroups = () => {
+
+    const popularGroupsContainerRef = useRef<HTMLDivElement>(null)
+
+    // Animations
+    useEffect(() => {
+        gsap.to(popularGroupsContainerRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: Power3.easeInOut
+        })
+    }, []);
+
   return (
-    <div className="bg-white border rounded-md  mt-8 lg:row-span-2 lg:overflow-scroll lg:row-start-1 lg:mt-0  border-[#F1F5F9] px-4 py-5 lg:col-span-3 lg:col-start-10">
+    <div ref={popularGroupsContainerRef} className="bg-white border rounded-md translate-y-[10px] opacity-0 mt-8 lg:row-span-2 lg:overflow-scroll lg:row-start-1 lg:mt-0  border-[#F1F5F9] px-4 py-5 lg:col-span-3 lg:col-start-10">
       <h2 className="text-[#475569] font-bold">Popular Groups</h2>
 
       <div className="mt-4">

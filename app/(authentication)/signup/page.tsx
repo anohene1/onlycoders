@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Logo from "@/assets/images/logo.png";
 import FormLabel from "@/components/shared/FormLabel";
 import AuthInput from "@/components/shared/AuthInput";
@@ -10,6 +10,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signupSchema } from "@/schema/signup";
 import { useRouter } from "next/navigation";
+import autoAnimate from '@formkit/auto-animate'
+import {gsap, Power3} from "gsap"
+
 
 interface ISignupData {
   email: string;
@@ -19,6 +22,7 @@ interface ISignupData {
 
 const Page = () => {
   const [isLoading, setIsloading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null)
   const {
     register,
     formState: { errors },
@@ -49,6 +53,24 @@ const Page = () => {
     }
   });
 
+  // Animations
+  useEffect(() => {
+    if (formRef.current) {
+      let formItems = formRef.current.children;
+      // @ts-ignore
+      for (const child of formItems) {
+        autoAnimate(child)
+      }
+    }
+
+    gsap.to(formRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      ease: Power3.easeOut
+    })
+  }, [formRef])
+
   return (
     <div className="w-[92%] lg:w-[35%] mx-auto relative">
       <div className="w-full">
@@ -63,7 +85,8 @@ const Page = () => {
       </div>
       <form
         onSubmit={onSubmit}
-        className="bg-white shadow-sm border border-[#F1F5F9] mt-6 py-10 lg:py-5 px-3 rounded-md"
+        ref={formRef}
+        className="bg-white shadow-sm border border-[#F1F5F9] mt-6 py-10 lg:py-5 px-3 rounded-md translate-y-[50px] opacity-0"
       >
         <div>
           <FormLabel message="Email" />

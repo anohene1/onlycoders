@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.0",
     "@hookform/resolvers": "^3.3.1",
     "bcrypt": "^5.1.1",
+    "gsap": "^3.12.2",
+    "lottie-react": "^2.4.0",
     "mongoose": "^7.5.3",
     "next": "latest",
     "react": "latest",

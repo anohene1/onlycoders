@@ -1,8 +1,27 @@
+"use client"
+
 import Image from "next/image";
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import LogoLg from "@/assets/images/social-logo.png";
+import {gsap} from "gsap";
 
 const NavBar = () => {
+
+  const searchIconRef = useRef<SVGPathElement>(null)
+  const [searchFieldFocused, setSearchFieldFocused] = useState(false)
+
+  // Animations
+  useEffect(() => {
+    let pathLength = searchIconRef.current?.getTotalLength();
+    gsap.set(searchIconRef.current, {strokeDasharray:pathLength});
+
+    if (searchFieldFocused) {
+      gsap.fromTo(searchIconRef.current, 0.5, {strokeDashoffset:pathLength}, {strokeDashoffset:0});
+    } else {
+      gsap.fromTo(searchIconRef.current, 0.5, {strokeDashoffset:0}, {strokeDashoffset:pathLength});
+    }
+  }, [searchFieldFocused]);
+
   return (
     <div className="flex bg-[#5d5dec] z-30 py-4 lg:px-8 px-5 items-center justify-between fixed top-0 left-0 w-full">
       <div className="lg:hidden">
@@ -122,22 +141,44 @@ const NavBar = () => {
           <input
             className="bg-transparent lg:w-full outline-none text-white placeholder:text-[#818CF8]"
             placeholder="Search here"
+            onFocus={() => setSearchFieldFocused(true)}
+            onBlur={() => setSearchFieldFocused(false)}
           />
-          <svg
-            width="16"
-            height="17"
-            viewBox="0 0 16 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.33333 4.5C9.17427 4.5 10.6667 5.99239 10.6667 7.83333M11.1059 11.6033L14 14.5M12.6667 7.83333C12.6667 10.7789 10.2789 13.1667 7.33333 13.1667C4.38781 13.1667 2 10.7789 2 7.83333C2 4.88781 4.38781 2.5 7.33333 2.5C10.2789 2.5 12.6667 4.88781 12.6667 7.83333Z"
-              stroke="#818CF8"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <div className="relative h-[17px] w-[16px]">
+            <svg
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute top-0 left-0 bottom-0 right-0"
+            >
+              <path
+                  d="M7.33333 4.5C9.17427 4.5 10.6667 5.99239 10.6667 7.83333M11.1059 11.6033L14 14.5M12.6667 7.83333C12.6667 10.7789 10.2789 13.1667 7.33333 13.1667C4.38781 13.1667 2 10.7789 2 7.83333C2 4.88781 4.38781 2.5 7.33333 2.5C10.2789 2.5 12.6667 4.88781 12.6667 7.83333Z"
+                  stroke="#818CF8"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute left-0 top-0"
+            >
+              <path
+                  d="M7.33333 4.5C9.17427 4.5 10.6667 5.99239 10.6667 7.83333M11.1059 11.6033L14 14.5M12.6667 7.83333C12.6667 10.7789 10.2789 13.1667 7.33333 13.1667C4.38781 13.1667 2 10.7789 2 7.83333C2 4.88781 4.38781 2.5 7.33333 2.5C10.2789 2.5 12.6667 4.88781 12.6667 7.83333Z"
+                  stroke="#fff"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ref={searchIconRef}
+              />
+            </svg>
+          </div>
         </div>
       </div>
 
