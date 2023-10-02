@@ -2,7 +2,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="banner-gradient p-5 rounded-lg lg:sticky  lg:z-10 lg:py-10 lg:px-7">
+    <div className="banner-gradient p-5 rounded-lg lg:mb-4  lg:py-10 lg:px-7 lg:col-span-12 lg:row-span-2">
       <p className="text-[16px] lg:text-[20px] text-white  font-medium">
         Newsfeed
       </p>

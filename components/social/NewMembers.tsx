@@ -3,7 +3,7 @@ import MemberTag from "./MemberTag";
 
 const NewMembers = () => {
   return (
-    <div className="bg-white border lg:row-start-3 lg:row-span-4  lg:overflow-scroll lg:col-span-3 lg:col-start-1  lg:mt-0 mt-8 border-[#F1F5F9] px-4 py-5">
+    <div className="bg-white border lg:row-start-1 rounded-md lg:row-span-2  lg:overflow-scroll lg:col-span-3 lg:col-start-1  lg:mt-0 mt-8 border-[#F1F5F9] px-4 py-5">
       <h2 className="text-[#475569] font-bold">Newest members</h2>
 
       <div className="mt-4">
